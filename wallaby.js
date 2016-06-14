@@ -1,30 +1,29 @@
-var wallabyWebpack = require('wallaby-webpack')
-var webpackPostprocessor = wallabyWebpack({})
-var config = require('./webpack.config.js')
+var babel = require('babel-core');
 
-config.module.loaders = config.module.loaders.filter(function(l) {
-  return l.loader !== 'awesome-typescript-loader'
-})
-
-module.exports = function () {
-
+module.exports = function (wallaby) {
   return {
     files: [
-      { pattern: 'src/**/*.ts', load: false },
-      { pattern: 'src/**/*.tsx', load: false }
+      'src-cls/**/*.js*',
+      {pattern: 'src-cls/**/__tests__/*', ignore: true},
     ],
 
     tests: [
-      { pattern: 'test/**/*Spec.ts', load: false },
-      { pattern: 'test/**/*Spec.tsx', load: false }
+      'src-cls/**/__tests__/*.js'
     ],
 
-    testRunner: 'mocha',
+    compilers: {
+      '**/*.js': wallaby.compilers.babel()
+    },
 
-    postprocessor: webpackPostprocessor,
+    env: {
+      type: 'node', runner: 'node'
+    },
 
-    bootstrap: function () {
-      window.__moduleBundler.loadTests()
+    testFramework: 'mocha',
+
+    debug: true,
+    setup: function () {
+      require('babel-polyfill');
     }
-  }
-}
+  };
+};
