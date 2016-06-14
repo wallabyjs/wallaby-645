@@ -5,8 +5,6 @@ module.exports = function (wallaby) {
     files: [
       'src-cls/**/*.js*',
       {pattern: 'src-cls/**/__tests__/*', ignore: true},
-      {pattern: 'node_modules/babel-polyfill/dist/polyfill.js', instrument: false},
-      {pattern: 'node_modules/react/dist/react-with-addons.js', instrument: false}
     ],
 
     tests: [
