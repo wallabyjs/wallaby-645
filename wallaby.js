@@ -1,18 +1,16 @@
-var babel = require('babel-core');
-
 module.exports = function (wallaby) {
   return {
     files: [
       'src-cls/**/*.js*',
-      {pattern: 'src-cls/**/__tests__/*', ignore: true},
+      {pattern: 'src-cls/**/__tests__/*-test.js', ignore: true}
     ],
 
     tests: [
-      'src-cls/**/__tests__/*.js'
+      'src-cls/**/__tests__/*-test.js'
     ],
 
     compilers: {
-      '**/*.js': wallaby.compilers.babel()
+      '**/*.js*': wallaby.compilers.babel()
     },
 
     env: {
@@ -23,7 +21,8 @@ module.exports = function (wallaby) {
 
     debug: true,
     setup: function () {
-      require('babel-polyfill');
+      require.extensions['.jsx'] = require.extensions['.js'];
+      require('./src-cls/__tests__/setup');
     }
   };
 };
