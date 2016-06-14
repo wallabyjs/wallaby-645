@@ -2,7 +2,7 @@
 
 import expect from 'expect';
 import { shallowComp } from '../../../../__tests__/helpers'
-import ColorEditor from '../ColorEditor';
+import ColorEditor from 'components/color-editor/ColorEditor';
 
 describe('ColorEditor', () => {
 

@@ -1,4 +1,7 @@
 module.exports = function (wallaby) {
+
+  process.env.NODE_PATH = require('path').join(wallaby.projectCacheDir, 'src-cls', 'app');
+
   return {
     files: [
       'src-cls/**/*.js*',
